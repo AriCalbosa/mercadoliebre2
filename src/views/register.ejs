@@ -1,0 +1,94 @@
+<!-- Include Head -->
+<%- include('partials/head', {title: 'Crear cuenta'}) %>
+<body>
+	<!-- Header -->
+	<%- include('partials/headerNavbar') %>
+	<!-- /Header -->
+	<div class="container products-wrapper">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="products-title">Formulario registro de cuenta</h2>
+            </div>
+        </div>
+        <div class="col-12">
+            <form action="/user/register" method="POST" enctype="multipart/form-data">
+                <div class="row product-detail">
+                    <div class="col-12 col-md-6">
+                        <label for="first_name" class="form-label">Nombre:</label>
+                        <input type="text" id="first_name" name="first_name" placeholder="" class="form-input" value="<%= locals.oldData ? oldData.first_name : null %>">
+                        <% if (locals.errors && errors.first_name) { %>
+                            <p class="error" style="color: red;"> <%= errors.first_name.msg %> </p>
+                        <% } %>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <label for="last_name" class="form-label">Apellido:</label>
+                        <input type="text" id="last_name" name="last_name" placeholder="" class="form-input" value="<%= locals.oldData ? oldData.last_name : null %>">
+                        <% if (locals.errors && errors.last_name) { %>
+                            <p class="error" style="color: red;"> <%= errors.last_name.msg %> </p>
+                        <% } %>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <label for="email" class="form-label">Correo electrónico:</label>
+                        <input type="email" id="email" name="email" placeholder="" class="form-input" value="<%= locals.oldData ? oldData.email : null %>">
+                        <% if (locals.errors && errors.email) { %>
+                            <p class="error" style="color: red;"> <%= errors.email.msg %> </p>
+                        <% } %>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <label for="birth_date" class="form-label">Fecha de nacimiento:</label>
+                        <input type="date" id="birth_date" name="birth_date" placeholder="" class="form-input" value="<%= locals.oldData ? oldData.birth_date : null %>">
+                        <% if (locals.errors && errors.birth_date) { %>
+                            <p class="error" style="color: red;"> <%= errors.birth_date.msg %> </p>
+                        <% } %>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <label for="adress" class="form-label">Dirección:</label>
+                        <input type="text" id="adress" name="adress" placeholder="" class="form-input" value="<%= locals.oldData ? oldData.adress : null %>">
+                        <% if (locals.errors && errors.adress) { %>
+                            <p class="error" style="color: red;"> <%= errors.adress.msg %> </p>
+                        <% } %>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <label for="category" class="form-label">Categoría:</label>
+                        <select name="category" id="category" class="form-input">
+                            <option value="">Elegí</option>
+                            <option value="buyer" <%= locals.oldData && ("buyer" === oldData.category ) ? 'selected' : null %> >Comprador</option>
+                            <option value="seller" <%= locals.oldData && ("seller" === oldData.category ) ? 'selected' : null %> >Vendedor</option>
+                        </select>
+                        <% if (locals.errors && errors.category) { %>
+                            <p class="error" style="color: red;"> <%= errors.category.msg %> </p>
+                        <% } %>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <label for="password" class="form-label">Contraseña:</label>
+                        <input type="password" id="password" name="password" placeholder="" class="form-input">
+                        <% if (locals.errors && errors.password) { %>
+                            <p class="error" style="color: red;"> <%= errors.password.msg %> </p>
+                        <% } %>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <label for="password2" class="form-label">Confirmar contraseña:</label>
+                        <input type="password" id="password2" name="password2" placeholder="" class="form-input">
+                        <% if (locals.errors && errors.password2) { %>
+                            <p class="error" style="color: red;"> <%= errors.password2.msg %> </p>
+                        <% } %>
+                    </div>
+                    <div class= "col-12">
+                        <label for="image" class="form-label">Foto de perfil:</label>
+                        <input type="file" id="image" name="image" class="form-input">
+                        <% if (locals.errors && errors.image) { %>
+                            <p class="error" style="color: red;"> <%= errors.image.msg %> </p>
+                        <% } %>
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" class="buy-now-button">Guardar producto</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+	<!-- footer -->
+	<%- include('partials/footer') %>
+	<!-- /footer -->
+</body>	
+</html>
