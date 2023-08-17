@@ -11,7 +11,18 @@ const controller = {
 		res.render('index', {products});
 	},
 	search: (req, res) => {
-		// Do the magic
+        let searchedProducts = req.query.keywords;
+            let searchedProductsMin = searchedProducts.toLowerCase();
+            let foundedProducts = [];
+            
+            for (let i = 0; i < products.length; i++) {
+                let productMin = products[i].name.toLowerCase();
+                if (productMin.includes(searchedProductsMin)) {
+                    foundedProducts.push(products[i]);
+                }
+            }
+            res.render('search', {products: foundedProducts});
+        
 	},
 };
 

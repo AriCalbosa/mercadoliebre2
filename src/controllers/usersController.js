@@ -13,7 +13,40 @@ const controller = {
 		res.render('login');
 	},
 	processLogin: (req, res) => {
-		res.redirect('/');
+		let userInDBByEmail = users.find(user => user.email === req.body.email);
+		console.log('userInDBByEmail.password: ' , userInDBByEmail);
+		if (userInDBByEmail) {
+			if (bcryptjs.compareSync(req.body.password, userInDBByEmail.password)) {
+				userInDBByEmail.password = null;
+				req.session.userLogged = userInDBByEmail;
+				if(req.body.remember_user) {
+					res.cookie('userEmail', userInDBByEmail.email, { maxAge: (1000 * 60) * 60 })
+				}
+
+				return res.redirect('/user/account');
+			} else {
+				res.render('login', {
+					errors: {
+						email: {
+							msg: 'Verifique su mail o contraseña'
+						}
+					},
+					oldData: req.body
+				})
+			}
+		} else {
+			res.render('login', {
+				errors: {
+					email: {
+						msg: 'Verifique su mail o contraseña'
+					}
+				},
+				oldData: req.body
+			});
+		}
+
+
+
 	},
 	register: (req, res) => {
 		res.render('register');
@@ -22,7 +55,7 @@ const controller = {
 		const resultValidation = validationResult(req);
 
         if (resultValidation.errors.length > 0) {
-			return res.render('register', {
+			res.render('register', {
 				errors: resultValidation.mapped(), 
 				oldData: req.body
 			});
@@ -68,6 +101,15 @@ const controller = {
 
 		res.redirect('/user/login');
 
+	},
+	account: (req, res) => {
+		let user = req.session.userLogged
+		res.render('account', {user});
+	},
+	logout: (req, res) => {
+		res.clearCookie('userEmail'); 
+		req.session.destroy();
+		res.redirect('/');
 	}
 };
 

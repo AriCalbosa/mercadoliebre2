@@ -29,16 +29,25 @@
 		<nav class="main-navbar">
 			<ul class="left-navbar">
 				<li><a href="/products">Todos los productos</a></li>
-				<li><a href="#">Ofertas</a></li>
-				<li><a href="#">Tiendas Oficiales</a></li>
-				<li><a href="/products/create">Vender</a></li>
-				<li><a href="#">Ayuda</a></li>
+				<li><a href="/products/offers">Ofertas</a></li>
+				<!-- <li><a href="#">Tiendas Oficiales</a></li> -->
+				<% if (locals.isLogged && locals.userLogged.category == 'seller') { %>
+					<li><a href="/products/create">Vender</a></li>
+				<% } %>
+				<!-- <li><a href="#">Ayuda</a></li> -->
 			</ul>
 
 			<ul class="right-navbar">
-				<li><a href="/user/register">Creá tu cuenta <i class="far fa-address-card"></i></a></li>
-				<li><a href="/user/login">Ingresá <i class="fas fa-sign-in-alt"></i></a></li>
-				<li><a href="#">Mis compras <i class="fas fa-shopping-basket"></i></a></li>
+				<% if (locals.isLogged) { %>
+					<li>
+						<a href="/user/account">Bienvenido, <%= locals.userLogged.first_name%>!</a>
+						<!-- <img src="/images/users/<%= locals.userLogged.image %>" width="100%" style="border-radius: 100%;"> -->
+					</li>
+					<li><a href="#">Mis compras <i class="fas fa-shopping-basket"></i></a></li>
+				<% } else { %>
+					<li><a href="/user/register">Creá tu cuenta <i class="far fa-address-card"></i></a></li>
+					<li><a href="/user/login">Ingresá <i class="fas fa-sign-in-alt"></i></a></li>
+				<% } %>
 			</ul>
 		</nav>
 	</div>

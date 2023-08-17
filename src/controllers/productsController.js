@@ -11,6 +11,9 @@ const controller = {
 	index: (req, res) => {
 		res.render('products', {products});
 	},
+	offers: (req, res) => {
+            res.render('search', {products: products.filter(product => product.category == 'in-sale')});
+	},
 
 	// Detail - Detail from one product
 	detail: (req, res) => {

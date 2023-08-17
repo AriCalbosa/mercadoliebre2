@@ -1,13 +1,14 @@
 // ************ Require's ************
 const express = require('express');
 const router = express.Router();
-const upload = require('../middlewares/multer');
+const upload = require('../middlewares/productMulter');
 
 // ************ Controller Require ************
 const productsController = require('../controllers/productsController');
 
 /*** GET ALL PRODUCTS ***/ 
 router.get('/', productsController.index); 
+router.get('/offers', productsController.offers);
 
 /*** CREATE ONE PRODUCT ***/ 
 router.get('/create/', productsController.create); 
